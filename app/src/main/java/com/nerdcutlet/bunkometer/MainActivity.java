@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     //Widgets
@@ -20,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("days");
+
+
         //Views
         button_mon = (Button) findViewById(R.id.mon);
         textView_mon = (TextView) findViewById(R.id.mon_text);
@@ -29,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 num_mon = num_mon + 1;
+                myRef.setValue(num_mon);
+
                 textView_mon.setText("" + num_mon);
             }
         });
