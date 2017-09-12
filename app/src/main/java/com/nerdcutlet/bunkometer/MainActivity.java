@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        final DatabaseReference myRef = database.getReference("days");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference mon = database.getReference("mon");
+
+        mon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 num_mon = (Long) dataSnapshot.getValue();
                 textView_mon.setText("" + num_mon);
-                Toast.makeText(getApplicationContext(), "Value is : " + num_mon, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 num_mon = num_mon + 1;
-                myRef.setValue(num_mon);
+                mon.setValue(num_mon);
 
                 textView_mon.setText("" + num_mon);
             }
