@@ -22,29 +22,13 @@ public class MainActivity extends AppCompatActivity {
     //Class Variables
     Long num_mon;
 
+    // Write a message to the database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        final DatabaseReference mon = database.getReference("mon");
-
-        mon.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                num_mon = (Long) dataSnapshot.getValue();
-                textView_mon.setText("" + num_mon);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
 
         //Views
         button_mon = (Button) findViewById(R.id.mon);
@@ -64,6 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Actions
+
+        //MONDAY
+        final DatabaseReference mon = database.getReference("mon");
+
+        mon.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                num_mon = (Long) dataSnapshot.getValue();
+                textView_mon.setText("" + num_mon);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         button_mon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
