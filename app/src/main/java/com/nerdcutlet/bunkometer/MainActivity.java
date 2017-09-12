@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView_mon, textView_tue, textView_wed, textView_thu, textView_fri;
 
     //Class Variables
-    int num_mon;
+    Long num_mon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         final DatabaseReference myRef = database.getReference("days");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                num_mon = (Long) dataSnapshot.getValue();
+                textView_mon.setText("" + num_mon);
+                Toast.makeText(getApplicationContext(), "Value is : " + num_mon, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         //Views
