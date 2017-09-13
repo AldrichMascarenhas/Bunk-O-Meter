@@ -113,6 +113,93 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //WEDNESDAY
+
+        final DatabaseReference wed = database.getReference("wed");
+
+        wed.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    num_wed = (Long) dataSnapshot.getValue();
+                    textView_wed.setText("" + num_wed);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        button_wed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                num_wed = num_wed + 1;
+                wed.setValue(num_wed);
+
+                textView_wed.setText("" + num_wed);
+            }
+        });
+
+        //THURSDAY
+
+        final DatabaseReference thu = database.getReference("thu");
+
+        thu.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    num_thu = (Long) dataSnapshot.getValue();
+                    textView_thu.setText("" + num_thu);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        button_thu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                num_thu = num_thu + 1;
+                thu.setValue(num_thu);
+
+                textView_thu.setText("" + num_thu);
+            }
+        });
+
+        //FRIDAY
+
+        final DatabaseReference fri = database.getReference("fri");
+
+        fri.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    num_fri = (Long) dataSnapshot.getValue();
+                    textView_fri.setText("" + num_fri);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        button_fri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                num_fri = num_fri + 1;
+                fri.setValue(num_fri);
+
+                textView_fri.setText("" + num_fri);
+            }
+        });
+
     }
 
 }
