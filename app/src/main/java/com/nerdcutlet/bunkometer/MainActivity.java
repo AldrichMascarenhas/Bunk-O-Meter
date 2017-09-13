@@ -20,7 +20,11 @@ public class MainActivity extends AppCompatActivity {
     TextView textView_mon, textView_tue, textView_wed, textView_thu, textView_fri;
 
     //Class Variables
-    Long num_mon;
+    Long num_mon = 0L;
+    Long num_tue = 0L;
+    Long num_wed = 0L;
+    Long num_thu = 0L;
+    Long  num_fri = 0L;
 
     // Write a message to the database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -55,8 +59,11 @@ public class MainActivity extends AppCompatActivity {
         mon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                num_mon = (Long) dataSnapshot.getValue();
-                textView_mon.setText("" + num_mon);
+                if(dataSnapshot.exists()){
+                    num_mon = (Long) dataSnapshot.getValue();
+                    textView_mon.setText("" + num_mon);
+                }
+
             }
 
             @Override
@@ -72,6 +79,37 @@ public class MainActivity extends AppCompatActivity {
                 mon.setValue(num_mon);
 
                 textView_mon.setText("" + num_mon);
+            }
+        });
+
+
+        //TUESDAY
+
+
+        final DatabaseReference tue = database.getReference("tue");
+
+        tue.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    num_tue = (Long) dataSnapshot.getValue();
+                    textView_tue.setText("" + num_tue);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        button_tue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                num_tue = num_tue + 1;
+                tue.setValue(num_tue);
+
+                textView_tue.setText("" + num_tue);
             }
         });
 
